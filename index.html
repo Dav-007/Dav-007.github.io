@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarjeta de Amor</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            margin: 0;
+            padding: 0;
+            background: 
+            linear-gradient(
+            rgba(17, 195, 226, 0.363), 
+            rgba(12, 128, 236, 0.432)
+    ), 
+    url("img/img02.jpg");
+    background-size: 10% 10%;
+    background-size: cover; /* Asegura que la imagen cubra todo el contenedor */
+    background-position: center; /* Centra la imagen */
+            color: #333;
+            text-align: center;
+            overflow: hidden; /* Evitar el desplazamiento */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            position: fixed; /* Cambiar a fixed para bloquear el scroll */
+            width: 100%; /* Asegurar que ocupe todo el ancho */
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.668); /* 0.5 es el nivel de opacidad (50%) */
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            padding: 15px; /* Reducir padding para móviles */
+            max-width: 80%; /* Hacer la tarjeta más estrecha en móviles */
+            width: 450px; /* Ancho fijo para pantallas grandes */
+            position: relative;
+            text-align: center;
+            animation: fadeIn 1.5s ease-in-out;
+            z-index: 10; /* Menor que el de los corazones */
+            overflow: hidden; /* Evitar que los corazones se salgan de la tarjeta */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .hearts {
+            font-size: 60px;
+            color: #e63946;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            color: #e63946;
+            font-size: 28px; /* Ajustar tamaño para móviles */
+            margin: 10px 0; /* Añadir margen */
+        }
+        p {
+            font-size: 15px; /* Reducir tamaño para móviles */
+            line-height: 1.5;
+            color: #444;
+            margin: 10px 0; /* Añadir margen */
+            font-weight: bold;
+        }
+        .image-container {
+            position: relative;
+            width: 100%;
+            height: 400px; /* Aumentar la altura del contenedor de imágenes */
+            overflow: hidden;
+            border-radius: 15px;
+        }
+        .image-container img {
+            width: 100%;
+            height: 100%; /* Mantener la proporción de las imágenes */
+            object-fit: cover; /* Ajustar la imagen para cubrir el contenedor */
+            border-radius: 15px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0; /* Ocultar inicialmente */
+            animation: fade 10s infinite; /* Duración total para todas las imágenes */
+        }
+        .image-container img:nth-child(1) { animation-delay: 0s; }
+        .image-container img:nth-child(2) { animation-delay: 3s; }
+        .image-container img:nth-child(3) { animation-delay: 6s; }
+
+        @keyframes fade {
+            0%, 20% { opacity: 1; }
+            25%, 100% { opacity: 0; }
+        }
+
+        .footer {
+            font-size: 14px; /* Ajustar tamaño para móviles */
+            color: #555;
+            margin-top: 25px;
+            font-style: italic;
+        }
+        .floating-heart {
+            position: absolute;
+            font-size: 40px; /* Aumentar el tamaño del corazón */
+            animation: floatHeart 6s infinite linear;
+            opacity: 0.8;
+            color: #e63946;
+            z-index: 50; /* Asegurarse de que floten sobre la tarjeta */
+        }
+        @keyframes floatHeart {
+            0% { transform: translateY(calc(100vh + 10px)) scale(1); opacity: 1; } /* Comienza 10px debajo de la tarjeta */
+            50% { opacity: 0.7; }
+            100% { transform: translateY(-50px) scale(1.5); opacity: 0; }
+        }
+        .glow {
+            animation: glow 1.5s infinite alternate;
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px #e63946; }
+            100% { text-shadow: 0 0 20px #ff9aa2; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="hearts">❤️❤️❤️</div>
+        <h1 class="glow">CARIÑOOOO...Nicole Olivera Apaza</h1>
+        <p>Desde el primer día que te vi, supe que mi corazón te pertenecía, 
+        eres mi luz, mi felicidad, te quiero muchooooo....❤️ 
+        Cada momento contigo es único y maravilloso</p>
+
+        <div class="image-container">
+            <img src="img/img01.jpg" alt="Imagen 1" class="active">
+            <img src="img/img04.jpg" alt="Imagen 2">
+            <img src="img/img03.jpg" alt="Imagen 3">
+        </div>
+
+        <p class="footer">Con todo mi amor, tu persona favorita 💖💖💖</p>
+    </div>
+    <script>
+        function createFloatingHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            heart.textContent = '❤️';
+            heart.style.left = Math.random() * window.innerWidth + 'px';
+            heart.style.top = (window.innerHeight / 2 + 10) + 'px'; // Comienza 10px debajo de la tarjeta
+            heart.style.fontSize = (Math.random() * 30 + 30) + 'px'; // Aumentar rango de tamaño
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 6000);
+        }
+        setInterval(createFloatingHeart, 300);
+    </script>
+</body>
+</html>
